@@ -10,7 +10,7 @@ choice = input('(1) If you want to be the host, (2)If you want to connect with t
 # The host
 if choice == '1':
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind(("10.190.152.123", 9999))
+    server.bind(("ip_address", 9999))
     server.listen()
     client, _ = server.accept()
     client.send(public_key.save_pkcs1("PEM"))
@@ -19,7 +19,7 @@ if choice == '1':
 # The other side
 elif choice == '2':
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect(("10.190.152.123", 9999))
+    client.connect(("ip_address", 9999))
     public_partner = rsa.PublicKey.load_pkcs1(client.recv(1024))
     client.send(public_key.save_pkcs1("PEM"))
 else:
